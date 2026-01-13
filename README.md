@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💎 CryptoScout: Agent-Driven UI Demo
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Built%20With-Next.js-black?style=flat&logo=next.js)
+![Tailwind](https://img.shields.io/badge/Styled%20With-Tailwind-blue?style=flat&logo=tailwindcss)
+![Status](https://img.shields.io/badge/Status-Educational%20Demo-green)
 
-First, run the development server:
+> **Submission for Thesys Developer Advocate Assignment**
+>
+> *Note: This project demonstrates the **Agent-to-User Interface (A2UI)** architectural pattern using a mocked decision engine for zero-latency demonstration purposes.*
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 The Concept: Beyond Plain Text
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Traditional AI agents are stuck in the "Text Age." You ask for data, they give you a paragraph.
+**CryptoScout** flips this model using the **A2UI Protocol Pattern**, where the Agent backend drives the Client's rendering.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1.  **User Intent:** "Show me Bitcoin price."
+2.  **Agent Decision:** The agent doesn't write text; it selects the `<CryptoCard />` component.
+3.  **Visual Output:** The client renders an interactive, native React card.
 
-## Learn More
+## 🛠 Tech Stack & Reasoning
 
-To learn more about Next.js, take a look at the following resources:
+While the official A2UI reference implementation utilizes Python and Lit, I chose **Next.js (App Router)** for this demonstration.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* **Strategic Adoption:** The majority of the modern developer ecosystem (approx. 80%) operates within React/Next.js. Demonstrating A2UI concepts in this stack significantly lowers the barrier to entry for adoption.
+* **Server Components:** React Server Components (RSC) allow us to stream UI directly from the server, perfectly mirroring the A2UI "Server-Driven UI" philosophy.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ⚡ Quick Start
 
-## Deploy on Vercel
+1.  **Clone the repo**
+    ```bash
+    git clone [https://github.com/YOUR_USERNAME/crypto-scout.git](https://github.com/YOUR_USERNAME/crypto-scout.git)
+    cd crypto-scout
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2.  **Install dependencies**
+    ```bash
+    npm install
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3.  **Run the dev server**
+    ```bash
+    npm run dev
+    ```
+
+4.  **Test the Agent**
+    * Open `http://localhost:3000`
+    * Type: *"What is the price of BTC?"* or *"Check ETH status"*
+
+## 🧩 Architecture & Walkthrough
+
+To provide a clear, beginner-friendly mental model, this demo mocks the LLM decision engine client-side. This isolates the **architectural pattern** without the noise of API keys or rate limits.
+
+### The Data Flow
+
+![Can_you_enhancse_202601131848](https://github.com/user-attachments/assets/0a945833-f3f9-4733-8c86-630a7cc0aac8)
+
+
+1.  **Input:** User sends a query (`"Check BTC"`).
+2.  **Intent Classification (Mocked):** The system detects the intent (`GET_PRICE`) and entity (`BTC`).
+3.  **Component Selection:** Instead of generating a text string, the system selects the `<CryptoCard />` component.
+4.  **Hydration:** The component is populated with data (`price`, `trend`) and rendered instantly.
+
+<details>
+<summary><strong>🔍 Click to see the Code Walkthrough</strong></summary>
+
+The logic inside `app/page.tsx` simulates the Agent's decision-making process:
+
+```typescript
+// The "Agent" Logic (Mocked for Demo)
+if (userMsg.includes("btc")) {
+  // 1. Detect Intent: User wants Bitcoin price
+  // 2. Select Component: Render UI instead of text
+  responseComponent = (
+    <CryptoCard 
+      coin="Bitcoin" 
+      code="BTC" 
+      price="$94,230.00" 
+      trend="up" 
+    />
+  );
+}
+  responseComponent = <CryptoCard coin="Bitcoin" price="$94,230.00" ... />;
+}
