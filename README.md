@@ -30,7 +30,7 @@ While the official A2UI reference implementation utilizes Python and Lit, I chos
 
 1.  **Clone the repo**
     ```bash
-    git clone [https://github.com/YOUR_USERNAME/crypto-scout.git](https://github.com/YOUR_USERNAME/crypto-scout.git)
+    git clone https://github.com/askadityapandey/a2ui-nextjs-starter.git
     cd crypto-scout
     ```
 
